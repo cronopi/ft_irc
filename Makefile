@@ -4,7 +4,7 @@ CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = ircserv
-SRC = main.cpp Server.cpp
+SRC = main.cpp Server.cpp Client.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

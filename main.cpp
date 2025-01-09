@@ -38,6 +38,7 @@ int main (int argc, char **argv)
 	}
 	catch(const std::exception& e)
 	{
+		std::cout << "testeo" << std::endl;
 		//aqui hay que hacer una llamada para cerrar los descriptores, liberar la memoria y cerrar el socket
 		server.CloseServer();
 		std::cerr << e.what() << std::endl;
@@ -45,3 +46,46 @@ int main (int argc, char **argv)
 	std::cout << "Server closed" << std::endl;
 	return (0);
 }
+
+/*
+Un cliente IRC es un programa que se conecta a un servidor IRC y permite
+a los usuarios interactuar con el servidor y con otros usuarios.
+Hay muchos clientes IRC existentes que puedes utilizar. Los estudiantes de
+42 más recientes han aprendido a usar el cliente de IRC de hexchat.
+
+Una vez instalado Hexchat necesito configuar el servidor(entiendo que es local)
+Para ello será necesario la dirección IP del servidor,el puerto y nombre de la red(no estoy seguro)
+
+Para conectar al servidor seguir estos pasos:
+
+https://wiki.znc.in/HexChat
+
+
+
+The way file transfer works over IRC Is via DCC (direct client to client),
+so no actual file Is stored in the server. It Is really easy to implement as
+It Is Simply a command handled by hexchat only. And you can test It via hexchat
+directly by sending a file from localhost to localhost.
+
+
+
+por qué al lanzar el throw en la función sigHandler se entra en el bloque catch:
+
+Cuando se lanza una excepción en C++, el flujo de ejecución se interrumpe
+y se busca un bloque catch que pueda manejar la excepción.
+
+En este caso, el bloque try que contiene la llamada a la función sigHandler que
+tiene un bloque catch asociado que puede manejar excepciones de tipo std::exception.
+La excepción Server::SignalException es una clase que hereda de std::exception,
+por lo que el bloque catch puede manejarla.
+
+Cuando se lanza la excepción en la función sigHandler, el flujo de ejecución se interrumpe
+y se busca el bloque catch más cercano que pueda manejar la excepción. En este caso,
+es el bloque catch que está dentro del bloque try que contiene la llamada a la función sigHandler.
+
+
+
+Qué es el birdcd?
+A basic TCP server. It's an exemple of how to use the function. doesn't implement any IRC specific.
+
+*/

@@ -20,14 +20,13 @@ Server &Server::operator=(const Server &copy)
 	return (*this);
 }
 
-Server::Server(int port, std::string host) : port(port), host(host)
+Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 {
-
 }
 
 void Server::ServerInit()
 {
-	servidor_fd_socket = socket(AF_INET, SOCK_STREAM, 0);
+	servidor_fd_socket = socket(AF_INET, SOCK_STREAM, 0); // IPPROTO_TCP = 0  en este caso. cuando pasamos 0 el sistema escoge el protocolo por defecto
 	if (servidor_fd_socket < 0)
 		throw std::runtime_error("Error: socket creation failed");
 	std::cout << "Socket created" << std::endl;
@@ -44,15 +43,21 @@ void Server::ServerInit()
 		throw std::runtime_error("Error: bind failed");
 	}
 
-	if (listen(servidor_fd_socket, 10) <0) // está listo para escuchar conexiones entrantes
+	if (listen(servidor_fd_socket, 10) < 0) // está listo para escuchar conexiones entrantes
 		throw std::runtime_error("Error: listen failed");
 
 	std::cout << "Server listening on port " << port << std::endl;
 
+
+	while (Server::signal == false)
+	{
+	}
+/*
+	Parte de Amir
+
 	new_cli.fd = servidor_fd_socket;
 	new_cli.events = POLLIN;
 	new_cli.revents = 0;
-
 	fds.push_back(new_cli);
 
 	std::cout << "Server <" << servidor_fd_socket << "> Connected" << std::endl;
@@ -69,24 +74,34 @@ void Server::ServerInit()
 			{
 				if (fds[i].fd == servidor_fd_socket)
 					this->acceptClients();
-				//else
-					//this->reciveNewData(fds[i].fd);
+				else
+					this->reciveNewData(fds[i].fd);
 			}
 		}
-	}
+	} */
 	//close_fds();
 } // aquí ya hemos rellenado la nueva ficha de los clientes o actualizado sus datos
 
 
-void Server::acceptClients()
+void Server::ClearClients(int fd)
 {
-
+	//explicación de Amir
+		for(size_t i = 0; i < fds.size(); i++){ //-> remove the client from the pollfd
+		if (fds[i].fd == fd)
+		{
+			fds.erase(fds.begin() + i);
+			break;
+		}
+	}
+	for(size_t i = 0; i < clients.size(); i++){ //-> remove the client from the vector of clients
+		if (clients[i].getFd() == fd)
+		{
+			clients.erase(clients.begin() + i);
+			break;
+		}
+	}
 }
 
-void Server::acceptConnections()
-{
-
-}
 
 void Server::CloseServer()
 {

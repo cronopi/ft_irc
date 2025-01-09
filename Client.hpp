@@ -14,7 +14,7 @@ class Client
 		~Client();
 		Client &operator=(const Client &copy);
 
-		int getFd() const;
+		int getFd();
 		void setFd(int fd);
 		std::string getIP() const;
 		void setIP(std::string IP);

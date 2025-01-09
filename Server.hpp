@@ -7,8 +7,10 @@
 #include "Channel.hpp"
 #include "Reply.hpp"
 #include "Command.hpp" */
+#include "Client.hpp"
 #include <iostream>
 #include <stdlib.h>
+#include <cstring> //-> for memset
 #include <vector> //-> for vector
 #include <sys/socket.h> //-> for socket()
 #include <sys/types.h> //-> for socket()
@@ -19,10 +21,13 @@
 #include <poll.h> //-> for poll()
 #include <csignal> //-> for signal()
 //-------------------------------------------------------//
-//class Client //-> class for client
+
+class Client;
+
 
 class Server
 {
+	static const int MAXCLIENTS = 200;
 	private:
 		int port;
 		std::string _password;
@@ -31,7 +36,11 @@ class Server
 		struct sockaddr_in add;
 		int servidor_fd_socket;
 		struct pollfd new_cli;
-		std::vector<struct pollfd> fds;
+		std::vector<Client> clients;
+		//std::vector<struct pollfd> fds;
+
+		struct pollfd fds[MAXCLIENTS];
+		int nfds = 0;
 
 		class SignalException : public std::exception
 		{
@@ -46,10 +55,11 @@ class Server
 		Server(int port, std::string host);
 		void acceptConnections();
 		void acceptClients();
+		void reciveNewData(int fd);
+		void ClearClients(int fd);
 		void handleMessage(std::string message);
 		void CloseServer();
 		void ServerInit();
-		void ClearClients(int fd);
 
 		static void sigHandler(int sig);
 
