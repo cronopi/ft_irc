@@ -38,7 +38,6 @@ int main (int argc, char **argv)
 	}
 	catch(const std::exception& e)
 	{
-		std::cout << "testeo" << std::endl;
 		//aqui hay que hacer una llamada para cerrar los descriptores, liberar la memoria y cerrar el socket
 		server.CloseServer();
 		std::cerr << e.what() << std::endl;
@@ -68,20 +67,6 @@ It Is Simply a command handled by hexchat only. And you can test It via hexchat
 directly by sending a file from localhost to localhost.
 
 
-
-por qué al lanzar el throw en la función sigHandler se entra en el bloque catch:
-
-Cuando se lanza una excepción en C++, el flujo de ejecución se interrumpe
-y se busca un bloque catch que pueda manejar la excepción.
-
-En este caso, el bloque try que contiene la llamada a la función sigHandler que
-tiene un bloque catch asociado que puede manejar excepciones de tipo std::exception.
-La excepción Server::SignalException es una clase que hereda de std::exception,
-por lo que el bloque catch puede manejarla.
-
-Cuando se lanza la excepción en la función sigHandler, el flujo de ejecución se interrumpe
-y se busca el bloque catch más cercano que pueda manejar la excepción. En este caso,
-es el bloque catch que está dentro del bloque try que contiene la llamada a la función sigHandler.
 
 
 

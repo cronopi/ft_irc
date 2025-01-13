@@ -27,7 +27,6 @@ class Client;
 
 class Server
 {
-	static const int MAXCLIENTS = 200;
 	private:
 		int port;
 		std::string _password;
@@ -35,12 +34,14 @@ class Server
 		std::string host;
 		struct sockaddr_in add;
 		int servidor_fd_socket;
-		struct pollfd new_cli;
 		std::vector<Client> clients;
-		//std::vector<struct pollfd> fds;
 
+		//std::vector<Channel> channels;
+		//std::vector <struct pollfd> fds;
+		static const int MAXCLIENTS = 200;
+		struct pollfd new_cli;
 		struct pollfd fds[MAXCLIENTS];
-		int nfds = 0;
+		int nfds;
 
 		class SignalException : public std::exception
 		{
