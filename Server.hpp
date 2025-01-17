@@ -39,9 +39,8 @@ class Server
 		//std::vector<Channel> channels;
 		//std::vector <struct pollfd> fds;
 		static const int MAXCLIENTS = 200;
-		struct pollfd new_cli;
-		struct pollfd fds[MAXCLIENTS];
-		int nfds;
+
+
 
 		class SignalException : public std::exception
 		{
