@@ -1,13 +1,14 @@
 #ifndef CLIENT_HPP
 # define CLIENT_HPP
 
-#include "Server.hpp"
+#include <iostream>
 #include <netinet/in.h> //-> for sockaddr_in
 
 
 class Client
 {
 	private:
+		std::string name;
 		int fd;
 		struct sockaddr_in addr;
 	public:

@@ -2,11 +2,8 @@
 # define SERVER_HPP
 
 #include <iostream>
-
-/* #include "User.hpp"
+#include "Command.hpp"
 #include "Channel.hpp"
-#include "Reply.hpp"
-#include "Command.hpp" */
 #include "Client.hpp"
 #include <iostream>
 #include <stdlib.h>
@@ -22,7 +19,8 @@
 #include <csignal> //-> for signal()
 //-------------------------------------------------------//
 
-class Client;
+//class Client;
+
 
 
 class Server
@@ -35,12 +33,9 @@ class Server
 		struct sockaddr_in add;
 		int servidor_fd_socket;
 		std::vector<Client> clients;
+		std::vector<Channel> channels;
 
-		//std::vector<Channel> channels;
-		//std::vector <struct pollfd> fds;
 		static const int MAXCLIENTS = 200;
-
-
 
 		class SignalException : public std::exception
 		{

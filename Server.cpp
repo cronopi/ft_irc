@@ -1,4 +1,7 @@
 #include "Server.hpp"
+#include <cerrno>
+#include <cstdio>
+#include <cstring>
 
 Server::Server()
 {
@@ -15,6 +18,8 @@ Server::Server(const Server &copy)
 
 Server &Server::operator=(const Server &copy)
 {
+	clients = copy.clients;
+	channels = copy.channels;
 	port = copy.port;
 	host = copy.host;
 	return (*this);
@@ -61,37 +66,74 @@ void Server::ServerInit()
 
 	while(true)
 	{
+		// acepta una nueva conexion, devuelve el socket de la conexion y la direccion del cliente
 		clientsock_fd = accept(servidor_fd_socket,(struct sockaddr*) &cli_addr, &clilen);
-		if (clientsock_fd > 0)
+		if (clientsock_fd != -1)
 		{
 			std::cout << "Conexion entrante en socket " << clientsock_fd << std::endl;
-
 			std::cout << "IP del cliente: " << inet_ntoa(cli_addr.sin_addr) << std::endl;
 			Client c( clientsock_fd, cli_addr);
 			clients.push_back(c);
-			struct pollfd *pfds;
-			pfds = new struct pollfd[clients.size()];
-			size_t i = 0;
-			for (i = 0; i < clients.size(); i++)
-			{
-				pfds[i].fd = clients[i].getFd();
-				pfds[i].events = POLLHUP;
-				pfds[i].revents = 0;
-        	}
-			poll(pfds,clients.size(),0);
-			for( i=0; i<clients.size(); i++)
-			{
-				if(pfds[i].revents>0)
-				{
-					//Connection closed
-					// Remove client
-				}
-			}
-			//recibir el mensaje
-			//hacer lo mismo pero con POLLIN
 		}
-		sleep(1);
-		if ( Server::signal )
+		struct pollfd *pfds;
+		pfds = new struct pollfd[clients.size()];
+		size_t i = 0;
+		for (i = 0; i < clients.size(); i++)
+		{
+			pfds[i].fd = clients[i].getFd();
+			pfds[i].events = POLLHUP;
+			pfds[i].revents = 0;
+		}
+		poll(pfds,clients.size(),0);
+		std::vector<size_t> posToDelete;
+		for (i = 0; i < clients.size(); i++)
+		{
+			if(pfds[i].revents > 0)
+			{
+				//Connection closed and Remove client
+				close(clients[i].getFd());
+				posToDelete.push_back(i);
+			}
+		}
+		delete[] pfds;
+		for(i  = 0; i< posToDelete.size(); i++){
+			clients.erase(clients.begin() + posToDelete[i]);
+		}
+		//recibir el mensaje, hacer lo mismo pero con POLLIN
+		pfds = new struct pollfd[clients.size()];
+		for (i = 0; i < clients.size(); i++)
+		{
+			pfds[i].fd = clients[i].getFd();
+			pfds[i].events = POLLIN; // Cambia a POLLIN para recibir el mensaje
+			pfds[i].revents = 0;
+		}
+		poll(pfds, clients.size(), 0);
+		for (i = 0; i < clients.size(); i++)
+		{
+			if (pfds[i].revents > 0)
+			{
+				std::cout << "entrada al if" << std::endl;
+
+				std::string message2;
+				char buffer[1025] = {0};
+				int bytes_leidos = read(pfds[i].fd, buffer, 1024);
+				if (bytes_leidos == -1)
+					std::cout << "error en el read(1)" << std::endl;
+				buffer[bytes_leidos] = 0;
+				std::cout << "test bytes leidos: "<< bytes_leidos << "  file descriptor: " << pfds[i].fd << "  buffer: "<< buffer <<  std::endl;
+				if(bytes_leidos > 0)
+				{
+					std::cout << "entrada al bucle" << std::endl;
+					int l = strlen(buffer);
+					std::cout << "tamaño de l:" << l << std::endl;
+					message2.assign(buffer, bytes_leidos);
+					std::cout << "test message assing:" << message2 << std::endl;
+				}
+				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
+			}
+		}
+		sleep(2);
+		if (Server::signal)
 		{
 			exit(0);
 		}
