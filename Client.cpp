@@ -28,6 +28,11 @@ Client::Client(int fd, struct sockaddr_in addr): fd(fd), addr(addr)
 
 }
 
+std::string Client::getName()
+{
+	return (name);
+}
+
 
 int Client::getFd()
 {
@@ -44,7 +49,17 @@ struct sockaddr_in Client::getAddr() const
 	return (addr);
 }
 
+std::string Client::getChannel()
+{
+	return (channel);
+}
+
 void Client::setAddr(struct sockaddr_in addr)
 {
 	this->addr = addr;
+}
+
+void	Client::setChannel(std::string channel)
+{
+	this->channel = channel;
 }

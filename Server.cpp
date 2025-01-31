@@ -18,8 +18,7 @@ Server::Server(const Server &copy)
 
 Server &Server::operator=(const Server &copy)
 {
-	clients = copy.clients;
-	channels = copy.channels;
+	data=copy.data;
 	port = copy.port;
 	host = copy.host;
 	return (*this);
@@ -27,6 +26,10 @@ Server &Server::operator=(const Server &copy)
 
 Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 {
+	availableCommands.push_back(new Join(data));
+	//availableCommands.push_back(new Part(data));`
+
+
 }
 
 void Server::ServerInit()
@@ -34,6 +37,7 @@ void Server::ServerInit()
 	struct sockaddr_in cli_addr;
 	int clientsock_fd;
 	socklen_t clilen;
+	std::vector<Client> clients = data.getClients();
 
 	servidor_fd_socket = socket(AF_INET, SOCK_STREAM, 0); // IPPROTO_TCP = 0  en este caso. cuando pasamos 0 el sistema escoge el protocolo por defecto
 	if (servidor_fd_socket < 0)
@@ -130,6 +134,15 @@ void Server::ServerInit()
 					std::cout << "test message assing:" << message2 << std::endl;
 				}
 				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
+				std::string result = execute(message2, clients[i].getName());
+				if(result.compare("OK"))
+				{
+					// NO hacer nada?
+				}
+				else
+				{
+					/// enviarle el mensaje de error al cliente
+				}
 			}
 		}
 		sleep(2);
@@ -146,6 +159,25 @@ void Server::CloseServer()
 	{
 		close(servidor_fd_socket);
 	}
+}
+
+std::string Server::execute(std::string command,std::string clientName)
+{
+	std::string result;
+	unsigned int posCommand = 0;
+	while(posCommand<availableCommands.size() && !availableCommands[posCommand]->handles(command)){
+		posCommand++;
+	}
+
+	if(posCommand==availableCommands.size()){
+		return "INVALID COMMAND: '"+command+"'";
+	}
+	else{
+		return availableCommands[posCommand]->execute(command, clientName);
+	}
+
+
+
 }
 
 const char *Server::SignalException::what() const throw()

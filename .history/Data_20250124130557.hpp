@@ -1,0 +1,21 @@
+#ifndef DATA_HPP
+# define DATA_HPP
+
+#include <iostream>
+
+class Command
+{
+	private:
+
+
+	public:
+		Command();
+		Command(const Command &copy);
+		virtual ~Command();
+		Command &operator=(const Command &copy);
+
+		virtual bool handles(std::string Command) = 0;
+		virtual void execute(std::string Command) = 0;
+
+};
+#endif

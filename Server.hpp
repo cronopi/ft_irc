@@ -2,6 +2,7 @@
 # define SERVER_HPP
 
 #include <iostream>
+#include "Data.hpp"
 #include "Command.hpp"
 #include "Channel.hpp"
 #include "Client.hpp"
@@ -17,11 +18,11 @@
 #include <arpa/inet.h> //-> for inet_ntoa()
 #include <poll.h> //-> for poll()
 #include <csignal> //-> for signal()
-//-------------------------------------------------------//
 
-//class Client;
-
-
+#include "Join.hpp"
+#include "Part.hpp"
+#include "Quit.hpp"
+#include "Nick.hpp"
 
 class Server
 {
@@ -32,8 +33,9 @@ class Server
 		std::string host;
 		struct sockaddr_in add;
 		int servidor_fd_socket;
-		std::vector<Client> clients;
-		std::vector<Channel> channels;
+		Data data;
+		std::vector<Command*> availableCommands;
+
 
 		static const int MAXCLIENTS = 200;
 
@@ -41,6 +43,8 @@ class Server
 		{
 			virtual const char *what() const throw();
 		};
+
+		std::string execute(std::string command, std::string clientName);
 	public:
 		Server();
 		Server(const Server &copy);
