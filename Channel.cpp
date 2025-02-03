@@ -21,10 +21,20 @@ Channel &Channel::operator=(const Channel &copy)
 
 Channel::Channel(std::string name) :name(name)
 {
-
+	maxUsers = -1;
 }
 
 std::string Channel::getName()
 {
 	return (name);
+}
+
+std::string Channel::getTopic()
+{
+	return (topic);
+}
+
+std::string Channel::setTopic(std::string topic)
+{
+	this->topic = topic;
 }
