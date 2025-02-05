@@ -36,7 +36,7 @@ bool Invite::handles(std::string command)
 	result = split(command);
 	return result[0].compare("INVITE")== 0;
 }
-
+//sin terminar
 std::string Invite::execute(std::string command, std::string clientName)
 {
 	//TOPIC <canal> <user>
@@ -45,7 +45,7 @@ std::string Invite::execute(std::string command, std::string clientName)
 	std::string invitedClientName = splitCommand[2];
 	unsigned int posChannels = 0;
 	unsigned int posCliente = 0;
-
+	(void)clientName;
 	while (posChannels < data.getChannels().size() && data.getChannels()[posChannels].getName().compare(channelName) != 0)
 	{
 		posChannels++;

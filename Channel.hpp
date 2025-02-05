@@ -12,6 +12,7 @@ class Channel
 		bool			topicRestricted;
 		std::string		Password;
 		unsigned int	maxUsers;
+		//operator privilage
 
 	public:
 		Channel();
@@ -20,12 +21,17 @@ class Channel
 		Channel &operator=(const Channel  &copy);
 
 		Channel(std::string name);
-		std::string	getName();
-		std::string	getTopic();
-		std::string	getMaxUsers();
+		std::string		getName();
+		std::string		getTopic();
+		unsigned int	getMaxUsers();
+		bool			getInviteOnly();
+		std::string		getPassword();
 
-		std::string	setName(std::string name);
-		std::string	setTopic(std::string topic);
-		std::string	setMaxUsers(unsigned int maxUsers);
+		void			setName(std::string name);
+		void			setTopic(std::string topic);
+		void			setMaxUsers(unsigned int maxUsers);
+		void			setInviteOnly(bool inviteOnly);
+		void			setPassword(std::string password);
+
 };
 #endif

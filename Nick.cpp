@@ -34,17 +34,17 @@ bool Nick::handles(std::string command)
 	result = split(command);
 	return result[0].compare("JOIN")== 0;
 }
-
+// funcion sin terminar
 std::string Nick::execute(std::string command, std::string clientName)
 {
 	std::vector<std::string> splitCommand;
 
-	auto it = data.getClients().begin();
-	for(it; it != data.getClients().end(); it++)
+	std::vector<Client>::iterator it;
+	(void)command;
+	for(it = data.getClients().begin(); it != data.getClients().end(); it++)
 	{
 		if (it->getName() == clientName)
 		{
-
 			return ("OK");
 		}
 	}

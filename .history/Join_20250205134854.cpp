@@ -24,7 +24,7 @@ Join &Join::operator=(const Join &copy)
 
 Join::Join(Data &data):Command(data)
 {
-	std::cout << "numro de clientes en el constructor de JOIN: " << data.getClients().size() << std::endl;
+
 }
 
 bool Join::handles(std::string command)

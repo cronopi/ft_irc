@@ -39,14 +39,13 @@ std::string Kick::execute(std::string command, std::string clientName)
 {
 	std::string					clientToKick;
 	std::vector<std::string>	splitCommand;
-	int posClient;
-	int posOperator;
+	size_t posClient;
+	size_t posOperator;
 
 	splitCommand = split(command);
 	clientToKick = splitCommand[1];
 	posClient = 0;
 	posOperator = 0;
-
 
 	while(posOperator < data.getOperators().size() && data.getOperators()[posOperator].compare(clientName)==0)
 	{

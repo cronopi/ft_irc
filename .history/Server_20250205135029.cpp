@@ -11,7 +11,7 @@ Server::~Server()
 {
 }
 
-Server::Server(Server &copy)
+Server::Server(const Server &copy)
 {
 	*this = copy;
 }

@@ -38,62 +38,63 @@ bool Mode::handles(std::string command)
 std::string Mode::execute(std::string command, std::string clientName)
 {
 	// estructura -> MODE <canal o usuario> [+|-]<modo> [<argumento>]
+	(void)clientName;
 	std::vector <std::string> splitCommand = split(command);
 	std::string channelName = splitCommand[1];
 	std::string mode = splitCommand[2];
 	std::string argument = splitCommand[3];
 
-	if (mode[2] == '+i' || mode[2] == '-i')
+	if (mode.compare("+i") == 0 || mode.compare("-i") == 0)
 	{
-		if (mode.find('+') != std::string::npos)
+		if (mode[0] == '+')
 		{
 			//canal solo mediante invite
 		}
-		else if (mode.find('-') != std::string::npos)
+		else if (mode[0] == '-')
 		{
 			//canal mediante join e invite
 		}
 	}
-	else if (mode[2] == '+t' || mode[2] == '-t')
+	else if (mode.compare("+t") == 0 || mode.compare("-t") == 0)
 	{
-		if (mode.find('+') != std::string::npos)
+		if (mode[0] == '+')
 		{
 			//canal solo mediante
 		}
-		else if (mode.find('-') != std::string::npos)
+		else if (mode[0] == '-')
 		{
 			//canal mediante join e invite
 		}
 	}
-	else if (mode[2] == '+k' || mode[2] == '-k')
+	else if (mode.compare("+k") == 0 || mode.compare("-k") == 0)
 	{
-		if (mode.find('+') != std::string::npos)
+		if (mode[0] == '+')
 		{
 			//canal solo mediante contraseña
 		}
-		else if (mode.find('-') != std::string::npos)
+		else if (mode[0] == '-')
 		{
 			//canal sin contraseña
 		}
 	}
-	else if (mode[2] == '+o' || mode[2] == '-o')
+	else if (mode.compare("+o") == 0 || mode.compare("-o") == 0)
 	{
-		if (mode.find('+') != std::string::npos)
+		if (mode[0] == '+')
 		{
 			//canal con permiso de operador
 		}
-		else if (mode.find('-') != std::string::npos)
+		else if (mode[0] == '-')
 		{
 			//canal sin permiso de operador
 		}
 	}
-	else if (mode[2] == '+l' || mode[2] == '-l')
+	else if (mode.compare("+l") == 0 || mode.compare("-l") == 0)
 	{
-		if (mode.find('+') != std::string::npos)
+		if (mode[0] == '+')
 		{
 			//canal con max de usuarios
 		}
-		else if (mode.find('-') != std::string::npos)
+		else if (mode[0] == '-')
 		{
 			//canal sin maximo de usuarios
 		}

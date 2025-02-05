@@ -11,12 +11,12 @@ Server::~Server()
 {
 }
 
-Server::Server(Server &copy)
+Server::Server(const Server &copy)
 {
 	*this = copy;
 }
 
-Server &Server::operator=(Server &copy)
+Server &Server::operator=(const Server &copy)
 {
 	data=copy.data;
 	port = copy.port;
@@ -140,7 +140,7 @@ void Server::ServerInit()
 					std::cout << "test message assing:" << message2 << std::endl;
 				}
 				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
-				std::cout << "numro de clientes ANTES DEL EXECUTE:" << data.getClients().size() << std::endl;
+				std::cout << "numro de clientes:" << data.getClients().size() << std::endl;
 				std::string result = execute(message2, data.getClients()[i].getName());
 				std::cout << "imprime result: " << result << std::endl;
 				if(result.compare("OK"))
@@ -171,8 +171,6 @@ std::string Server::execute(std::string command,std::string clientName)
 {
 	std::string result;
 	unsigned int posCommand = 0;
-	std::cout << "numro de clientes dentro del execute de server:" << data.getClients().size() << std::endl;
-
 	while(posCommand<availableCommands.size() && !availableCommands[posCommand]->handles(command))
 	{
 		posCommand++;

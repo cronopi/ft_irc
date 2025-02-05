@@ -51,7 +51,7 @@ class Server
 		std::string execute(std::string command, std::string clientName);
 	public:
 		Server();
-		Server(Server &copy);
+		Server(const Server &copy);
 		~Server();
 		Server &operator=(Server &copy);
 

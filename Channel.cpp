@@ -21,7 +21,12 @@ Channel &Channel::operator=(const Channel &copy)
 
 Channel::Channel(std::string name) :name(name)
 {
-	maxUsers = -1;
+	Password		= "";
+	topic			= "";
+	maxUsers		= -1;
+	topicRestricted = 0;
+	inviteOnly		= 0;
+	//operator privilage
 }
 
 std::string Channel::getName()
@@ -29,12 +34,47 @@ std::string Channel::getName()
 	return (name);
 }
 
+void Channel::setName(std::string name)
+{
+	this->name = name;
+}
+
 std::string Channel::getTopic()
 {
 	return (topic);
 }
 
-std::string Channel::setTopic(std::string topic)
+void Channel::setTopic(std::string topic)
 {
 	this->topic = topic;
+}
+
+unsigned int Channel::getMaxUsers()
+{
+	return (maxUsers);
+}
+
+void Channel::setMaxUsers(unsigned int maxUsers)
+{
+	this->maxUsers = maxUsers;
+}
+
+bool	Channel::getInviteOnly()
+{
+	return (inviteOnly);
+}
+
+void Channel::setInviteOnly(bool inviteOnly)
+{
+	this->inviteOnly = inviteOnly;
+}
+
+std::string Channel::getPassword()
+{
+	return (Password);
+}
+
+void Channel::setPassword(std::string password)
+{
+	this->Password = password;
 }

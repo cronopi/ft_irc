@@ -9,14 +9,12 @@ Data::~Data()
 {
 }
 
-Data::Data(Data &copy)
+Data::Data(const Data &copy) : clients(copy.clients), channels(copy.channels)
 {
-	clients = copy.getClients();
-	channels = copy.getChannels();
-	operators = copy.getOperators();
+	this->operators = copy.operators;
 }
 
-Data &Data::operator=(Data &copy)
+Data &Data::operator=(const Data &copy)
 {
 	if (this != &copy)
 	{

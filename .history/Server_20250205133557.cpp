@@ -11,12 +11,12 @@ Server::~Server()
 {
 }
 
-Server::Server(Server &copy)
+Server::Server(const Server &copy)
 {
 	*this = copy;
 }
 
-Server &Server::operator=(Server &copy)
+Server &Server::operator=(const Server &copy)
 {
 	data=copy.data;
 	port = copy.port;

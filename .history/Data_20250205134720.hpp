@@ -14,7 +14,7 @@ class Data
 
 	public:
 		Data();
-		Data(Data &copy);
+		Data(const Data &copy);
 		virtual ~Data();
 		Data &operator=(Data &copy);
 

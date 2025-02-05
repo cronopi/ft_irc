@@ -22,9 +22,9 @@ Join &Join::operator=(const Join &copy)
 	return (*this);
 }
 
-Join::Join(Data &data):Command(data)
+Join::Join(Data &data)
 {
-	std::cout << "numro de clientes en el constructor de JOIN: " << data.getClients().size() << std::endl;
+	this->data = data;
 }
 
 bool Join::handles(std::string command)
@@ -41,8 +41,6 @@ std::string Join::execute(std::string command, std::string clientName)
 	std::string channelName;
 	std::vector<std::string> result;
 	unsigned int posCliente;
-
-	std::cout << "numro de clientes dentro del execute de join:" << data.getClients().size() << std::endl;
 
 	std::cout << "antes del split" << std::endl;
 	result = split(command);

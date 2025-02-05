@@ -11,12 +11,12 @@ Server::~Server()
 {
 }
 
-Server::Server(Server &copy)
+Server::Server(const Server &copy)
 {
 	*this = copy;
 }
 
-Server &Server::operator=(Server &copy)
+Server &Server::operator=(const Server &copy)
 {
 	data=copy.data;
 	port = copy.port;
@@ -107,18 +107,18 @@ void Server::ServerInit()
 		}
 		delete[] pfds;
 		for(i  = 0; i< posToDelete.size(); i++){
-			data.getClients().erase(data.getClients().begin() + posToDelete[i]);
+			clients.erase(clients.begin() + posToDelete[i]);
 		}
 		//recibir el mensaje, hacer lo mismo pero con POLLIN
-		pfds = new struct pollfd[data.getClients().size()];
-		for (i = 0; i < data.getClients().size(); i++)
+		pfds = new struct pollfd[clients.size()];
+		for (i = 0; i < clients.size(); i++)
 		{
-			pfds[i].fd = data.getClients()[i].getFd();
+			pfds[i].fd = clients[i].getFd();
 			pfds[i].events = POLLIN; // Cambia a POLLIN para recibir el mensaje
 			pfds[i].revents = 0;
 		}
-		poll(pfds, data.getClients().size(), 0);
-		for (i = 0; i < data.getClients().size(); i++)
+		poll(pfds, clients.size(), 0);
+		for (i = 0; i < clients.size(); i++)
 		{
 			if (pfds[i].revents > 0)
 			{
@@ -140,15 +140,14 @@ void Server::ServerInit()
 					std::cout << "test message assing:" << message2 << std::endl;
 				}
 				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
-				std::cout << "numro de clientes ANTES DEL EXECUTE:" << data.getClients().size() << std::endl;
-				std::string result = execute(message2, data.getClients()[i].getName());
+				std::string result = execute(message2, clients[i].getName());
 				std::cout << "imprime result: " << result << std::endl;
 				if(result.compare("OK"))
 				{
 					// NO hacer nada?
 				}
 				else
-					write(data.getClients()[i].getFd(), result.c_str(), result.size() + 1);
+					write(clients[i].getFd(), result.c_str(), result.size() + 1);
 			}
 		}
 		sleep(2);
@@ -171,8 +170,6 @@ std::string Server::execute(std::string command,std::string clientName)
 {
 	std::string result;
 	unsigned int posCommand = 0;
-	std::cout << "numro de clientes dentro del execute de server:" << data.getClients().size() << std::endl;
-
 	while(posCommand<availableCommands.size() && !availableCommands[posCommand]->handles(command))
 	{
 		posCommand++;
