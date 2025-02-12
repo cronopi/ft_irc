@@ -22,7 +22,7 @@ Kick &Kick::operator=(const Kick &copy)
 	return (*this);
 }
 
-Kick::Kick(Data &data)
+Kick::Kick(Data *data)
 {
 	this->data = data;
 }
@@ -47,19 +47,19 @@ std::string Kick::execute(std::string command, std::string clientName)
 	posClient = 0;
 	posOperator = 0;
 
-	while(posOperator < data.getOperators().size() && data.getOperators()[posOperator].compare(clientName)==0)
+	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(clientName)==0)
 	{
 		posOperator++;
 	}
-	if(posOperator<data.getOperators().size())
+	if(posOperator<data->getOperators().size())
 	{
-		while(posClient < data.getClients().size() && data.getClients()[posClient].getName().compare(clientToKick) != 0)
+		while(posClient < data->getClients().size() && data->getClients()[posClient].getName().compare(clientToKick) != 0)
 		{
 			posClient++;
 		}
-		if(posClient<data.getClients().size()){
-			if(data.getClients()[posClient].getChannel().compare("")!=0){
-				data.getClients()[posClient].setChannel("");
+		if(posClient<data->getClients().size()){
+			if(data->getClients()[posClient].getChannel().compare("")!=0){
+				data->getClients()[posClient].setChannel("");
 				return "OK";
 			}
 			else{

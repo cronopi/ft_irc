@@ -24,7 +24,7 @@ Invite &Invite::operator=(const Invite &copy)
 	return (*this);
 }
 
-Invite::Invite(Data &data)
+Invite::Invite(Data *data)
 {
 	this->data = data;
 }
@@ -46,22 +46,22 @@ std::string Invite::execute(std::string command, std::string clientName)
 	unsigned int posChannels = 0;
 	unsigned int posCliente = 0;
 	(void)clientName;
-	while (posChannels < data.getChannels().size() && data.getChannels()[posChannels].getName().compare(channelName) != 0)
+	while (posChannels < data->getChannels().size() && data->getChannels()[posChannels].getName().compare(channelName) != 0)
 	{
 		posChannels++;
 	}
-	if (posChannels == data.getChannels().size())
+	if (posChannels == data->getChannels().size())
 	{
 		Channel c(channelName);
-		data.getChannels().push_back(c);
+		data->getChannels().push_back(c);
 	}
-	while (posCliente < data.getClients().size() && data.getClients()[posCliente].getName().compare(invitedClientName) != 0)
+	while (posCliente < data->getClients().size() && data->getClients()[posCliente].getName().compare(invitedClientName) != 0)
 	{
 		posCliente++;
 	}
-	if (posCliente < data.getClients().size())
+	if (posCliente < data->getClients().size())
 	{
-		data.getClients()[posCliente].setChannel(channelName);
+		data->getClients()[posCliente].setChannel(channelName);
 		//enviar un mensaje
 /* 		std::string b = "You are invited to the channel: ";
 		b = b + channelName;

@@ -22,7 +22,7 @@ Nick &Nick::operator=(const Nick &copy)
 	return (*this);
 }
 
-Nick::Nick(Data &data)
+Nick::Nick(Data *data)
 {
 	this->data = data;
 }
@@ -41,14 +41,14 @@ std::string Nick::execute(std::string command, std::string clientName)
 
 	std::vector<Client>::iterator it;
 	(void)command;
-	for(it = data.getClients().begin(); it != data.getClients().end(); it++)
+	for(it = data->getClients().begin(); it != data->getClients().end(); it++)
 	{
 		if (it->getName() == clientName)
 		{
 			return ("OK");
 		}
 	}
-	if(it == data.getClients().end())
+	if(it == data->getClients().end())
 	{
 		std::cout << "Client not found" << std::endl;
 		return ("ERROR");

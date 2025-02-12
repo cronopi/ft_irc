@@ -31,6 +31,7 @@ Channel::Channel(std::string name) :name(name)
 
 std::string Channel::getName()
 {
+	std::cout << "estoy imprimiendo en el getname "<< name << std::endl;
 	return (name);
 }
 

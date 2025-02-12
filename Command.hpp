@@ -9,7 +9,7 @@ class Command
 	private:
 
 	protected:
-		Data data;
+		Data *data;
 
 	public:
 		Command();
@@ -17,7 +17,7 @@ class Command
 		virtual ~Command();
 		Command &operator=(const Command &copy);
 
-		Command(Data &data);
+		Command(Data *data);
 		virtual bool handles(std::string command) = 0;
 		virtual std::string execute(std::string command, std::string clientName) = 0;
 };

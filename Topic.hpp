@@ -15,7 +15,7 @@ class Topic : public Command
 		virtual ~Topic();
 		Topic &operator=(const Topic &copy);
 
-		Topic(Data &data);
+		Topic(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

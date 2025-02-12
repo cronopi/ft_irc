@@ -22,7 +22,7 @@ Mode &Mode::operator=(const Mode &copy)
 	return (*this);
 }
 
-Mode::Mode(Data &data)
+Mode::Mode(Data *data)
 {
 	this->data = data;
 }

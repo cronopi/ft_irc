@@ -15,7 +15,7 @@ class Kick : public Command
 		virtual ~Kick();
 		Kick &operator=(const Kick &copy);
 
-		Kick(Data &data);
+		Kick(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

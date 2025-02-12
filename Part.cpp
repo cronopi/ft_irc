@@ -22,7 +22,7 @@ Part &Part::operator=(const Part &copy)
 	return (*this);
 }
 
-Part::Part(Data &data)
+Part::Part(Data *data)
 {
 	this->data = data;
 }
@@ -41,7 +41,7 @@ std::string Part::execute(std::string command, std::string clientName)
 	std::string channelName;
 
 	splitCommand = split(command);
-	for (std::vector<Client>::iterator it = data.getClients().begin(); it != data.getClients().end(); it++)
+	for (std::vector<Client>::iterator it = data->getClients().begin(); it != data->getClients().end(); it++)
 	{
 		if (it->getName() == clientName)
 		{

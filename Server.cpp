@@ -26,6 +26,7 @@ Server &Server::operator=(Server &copy)
 
 Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 {
+	data = new Data();
 	availableCommands.push_back(new Join(data));
 	availableCommands.push_back(new Invite(data));
 	availableCommands.push_back(new Kick(data));
@@ -81,44 +82,44 @@ void Server::ServerInit()
 			std::cout << "Conexion entrante en socket " << clientsock_fd << std::endl;
 			std::cout << "IP del cliente: " << inet_ntoa(cli_addr.sin_addr) << std::endl;
 			Client c( clientsock_fd, cli_addr);
-			data.getClients().push_back(c);
+			data->getClients().push_back(c);
 		}
-		std::cout << "tamaño del array de clients: " << data.getClients().size() << std::endl;
+		std::cout << "tamaño del array de clients: " << data->getClients().size() << std::endl;
 
 		struct pollfd *pfds;
-		pfds = new struct pollfd[data.getClients().size()];
+		pfds = new struct pollfd[data->getClients().size()];
 		size_t i = 0;
-		for (i = 0; i < data.getClients().size(); i++)
+		for (i = 0; i < data->getClients().size(); i++)
 		{
-			pfds[i].fd = data.getClients()[i].getFd();
+			pfds[i].fd = data->getClients()[i].getFd();
 			pfds[i].events = POLLHUP;
 			pfds[i].revents = 0;
 		}
-		poll(pfds,data.getClients().size(),0);
+		poll(pfds,data->getClients().size(),0);
 		std::vector<size_t> posToDelete;
-		for (i = 0; i < data.getClients().size(); i++)
+		for (i = 0; i < data->getClients().size(); i++)
 		{
 			if(pfds[i].revents > 0)
 			{
 				//Connection closed and Remove client
-				close(data.getClients()[i].getFd());
+				close(data->getClients()[i].getFd());
 				posToDelete.push_back(i);
 			}
 		}
 		delete[] pfds;
 		for(i  = 0; i< posToDelete.size(); i++){
-			data.getClients().erase(data.getClients().begin() + posToDelete[i]);
+			data->getClients().erase(data->getClients().begin() + posToDelete[i]);
 		}
 		//recibir el mensaje, hacer lo mismo pero con POLLIN
-		pfds = new struct pollfd[data.getClients().size()];
-		for (i = 0; i < data.getClients().size(); i++)
+		pfds = new struct pollfd[data->getClients().size()];
+		for (i = 0; i < data->getClients().size(); i++)
 		{
-			pfds[i].fd = data.getClients()[i].getFd();
+			pfds[i].fd = data->getClients()[i].getFd();
 			pfds[i].events = POLLIN; // Cambia a POLLIN para recibir el mensaje
 			pfds[i].revents = 0;
 		}
-		poll(pfds, data.getClients().size(), 0);
-		for (i = 0; i < data.getClients().size(); i++)
+		poll(pfds, data->getClients().size(), 0);
+		for (i = 0; i < data->getClients().size(); i++)
 		{
 			if (pfds[i].revents > 0)
 			{
@@ -140,16 +141,30 @@ void Server::ServerInit()
 					std::cout << "test message assing:" << message2 << std::endl;
 				}
 				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
-				std::cout << "numro de clientes ANTES DEL EXECUTE:" << data.getClients().size() << std::endl;
-				std::string result = execute(message2, data.getClients()[i].getName());
+				std::cout << "numro de clientes ANTES DEL EXECUTE:" << data->getClients().size() << std::endl;
+				std::string result = execute(message2, data->getClients()[i].getName());
 				std::cout << "imprime result: " << result << std::endl;
 				if(result.compare("OK"))
 				{
 					// NO hacer nada?
 				}
 				else
-					write(data.getClients()[i].getFd(), result.c_str(), result.size() + 1);
+					write(data->getClients()[i].getFd(), result.c_str(), result.size() + 1);
 			}
+		}
+		std::cout << "estamos imprimiento los nombres de los clientes y de los canales" << std::endl;
+		unsigned int k = 0;
+/* 		while( k < data->getClients().size())
+		{
+			std::cout << "cliente: ************************************"  << std::endl;
+			k++;
+		} */
+		std::cout << "antes de imprimir los nombres de los canales dime su número: " << data->getChannels().size() << std::endl;
+		k = 0;
+		while( k < data->getChannels().size())
+		{
+			std::cout << "canales: " << ( data->getChannels()[i].getName()) << std::endl;
+			k++;
 		}
 		sleep(2);
 		if (Server::signal)
@@ -171,7 +186,7 @@ std::string Server::execute(std::string command,std::string clientName)
 {
 	std::string result;
 	unsigned int posCommand = 0;
-	std::cout << "numro de clientes dentro del execute de server:" << data.getClients().size() << std::endl;
+	std::cout << "numro de clientes dentro del execute de server:" << data->getClients().size() << std::endl;
 
 	while(posCommand<availableCommands.size() && !availableCommands[posCommand]->handles(command))
 	{

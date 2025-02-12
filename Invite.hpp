@@ -14,7 +14,7 @@ class Invite : public Command
 		virtual ~Invite();
 		Invite &operator=(const Invite &copy);
 
-		Invite(Data &data);
+		Invite(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

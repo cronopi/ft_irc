@@ -15,7 +15,7 @@ class Nick : public Command
 		virtual ~Nick();
 		Nick &operator=(const Nick &copy);
 
-		Nick(Data &data);
+		Nick(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

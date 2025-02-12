@@ -22,7 +22,7 @@ Topic &Topic::operator=(const Topic &copy)
 	return (*this);
 }
 
-Topic::Topic(Data &data)
+Topic::Topic(Data *data)
 {
 	this->data = data;
 }
@@ -48,20 +48,20 @@ std::string Topic::execute(std::string command, std::string clientName)
 	channelName = splitCommand[1];
 	newTopic = splitCommand[2];
 	posOperator = 0;
-	while(posOperator < data.getOperators().size() && data.getOperators()[posOperator].compare(clientName) != 0)
+	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(clientName) != 0)
 	{
 		posOperator++;
 	}
-	if (posOperator == data.getOperators().size())
+	if (posOperator == data->getOperators().size())
 		return "error: only operators can change the topic of the channel";
 	posChannel = 0;
-	while(posChannel < data.getChannels().size() && data.getChannels()[posChannel].getName().compare(channelName) != 0)
+	while(posChannel < data->getChannels().size() && data->getChannels()[posChannel].getName().compare(channelName) != 0)
 	{
 		posChannel++;
 	}
-	if (posChannel < data.getChannels().size())
+	if (posChannel < data->getChannels().size())
 	{
-		data.getChannels()[posChannel].setTopic(newTopic);
+		data->getChannels()[posChannel].setTopic(newTopic);
 	}
 	else
 		return "error: canal no encontrado";

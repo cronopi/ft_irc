@@ -15,7 +15,7 @@ class Part : public Command
 		virtual ~Part();
 		Part &operator=(const Part &copy);
 
-		Part(Data &data);
+		Part(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

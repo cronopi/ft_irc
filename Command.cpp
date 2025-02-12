@@ -21,7 +21,8 @@ Command &Command::operator=(const Command &copy)
 	return (*this);
 }
 
-Command::Command(Data &data)
+Command::Command(Data *data)
 {
 	this->data = data;
+	std::cout << "constructor de command: " << data << std::endl;
 }

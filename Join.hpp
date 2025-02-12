@@ -14,7 +14,7 @@ class Join : public Command
 		virtual ~Join();
 		Join &operator=(const Join &copy);
 
-		Join(Data &data);
+		Join(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

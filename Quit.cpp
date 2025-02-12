@@ -23,7 +23,7 @@ Quit &Quit::operator=(const Quit &copy)
 }
 
 
-Quit::Quit(Data &data)
+Quit::Quit(Data *data)
 {
 	this->data = data;
 }
@@ -47,16 +47,16 @@ std::string Quit::execute(std::string command, std::string clientName)
 	result = split(command);
 	QuitClient = result[1];
 	//eliminar al cliente de la lista
-	for (std::vector<Client>::iterator it = data.getClients().begin(); it != data.getClients().end(); it++)
+	for (std::vector<Client>::iterator it = data->getClients().begin(); it != data->getClients().end(); it++)
 	{
 		if (it->getName() == QuitClient)
 		{
-			data.getClients().erase(it);
+			data->getClients().erase(it);
 			break;
 		}
 	}
 	//eliminar al cliente de los canales
-	for (std::vector<Channel>::iterator it = data.getChannels().begin(); it != data.getChannels().end(); it++)
+	for (std::vector<Channel>::iterator it = data->getChannels().begin(); it != data->getChannels().end(); it++)
 	{
 
 	}

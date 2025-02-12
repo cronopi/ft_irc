@@ -15,7 +15,7 @@ class Quit : public Command
 		virtual ~Quit();
 		Quit &operator=(const Quit &copy);
 
-		Quit(Data &data);
+		Quit(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 

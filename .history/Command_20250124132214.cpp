@@ -23,5 +23,6 @@ Command &Command::operator=(const Command &copy)
 
 Command::Command(Data data)
 {
+	std::cout << "constructor de command: " << &data << std::endl;
 
 }

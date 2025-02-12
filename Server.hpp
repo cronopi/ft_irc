@@ -37,7 +37,7 @@ class Server
 		std::string host;
 		struct sockaddr_in add;
 		int servidor_fd_socket;
-		Data data;
+		Data *data;
 		std::vector<Command*> availableCommands;
 
 

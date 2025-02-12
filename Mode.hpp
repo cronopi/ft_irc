@@ -14,7 +14,7 @@ class Mode : public Command
 		virtual ~Mode();
 		Mode &operator=(const Mode &copy);
 
-		Mode(Data &data);
+		Mode(Data *data);
 		bool handles(std::string command);
 		std::string execute(std::string command, std::string clientName);
 
