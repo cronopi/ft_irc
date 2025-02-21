@@ -35,14 +35,14 @@ bool Mode::handles(std::string command)
 	return result[0].compare("MODE")== 0;
 }
 
-std::string Mode::execute(std::string command, std::string clientName)
+std::string Mode::execute(std::string command, size_t i) // std::string clientName
 {
 	// estructura -> MODE <canal o usuario> [+|-]<modo> [<argumento>]
-	(void)clientName;
 	std::vector <std::string> splitCommand = split(command);
 	std::string channelName = splitCommand[1];
 	std::string mode = splitCommand[2];
 	std::string argument = splitCommand[3];
+	(void)i;
 
 	if (mode.compare("+i") == 0 || mode.compare("-i") == 0)
 	{

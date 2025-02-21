@@ -16,7 +16,7 @@ class Join : public Command
 
 		Join(Data *data);
 		bool handles(std::string command);
-		std::string execute(std::string command, std::string clientName);
+		std::string execute(std::string command, size_t i);
 
 };
 #endif

@@ -36,7 +36,7 @@ bool Topic::handles(std::string command)
 }
 
 //TOPIC <canal> [:<nuevo_tema>]
-std::string Topic::execute(std::string command, std::string clientName)
+std::string Topic::execute(std::string command, size_t i)
 {
 	std::string channelName;
 	std::string newTopic;
@@ -48,7 +48,7 @@ std::string Topic::execute(std::string command, std::string clientName)
 	channelName = splitCommand[1];
 	newTopic = splitCommand[2];
 	posOperator = 0;
-	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(clientName) != 0)
+	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(data->getClients()[i].getName()) != 0)
 	{
 		posOperator++;
 	}

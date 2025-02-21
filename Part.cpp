@@ -35,7 +35,7 @@ bool Part::handles(std::string command)
 	return result[0].compare("PART")== 0;
 }
 
-std::string Part::execute(std::string command, std::string clientName)
+std::string Part::execute(std::string command, size_t i)
 {
 	std::vector<std::string> splitCommand;
 	std::string channelName;
@@ -43,7 +43,7 @@ std::string Part::execute(std::string command, std::string clientName)
 	splitCommand = split(command);
 	for (std::vector<Client>::iterator it = data->getClients().begin(); it != data->getClients().end(); it++)
 	{
-		if (it->getName() == clientName)
+		if (it->getName() == data->getClients()[i].getName())
 		{
 			if(it->getChannel().compare("")!=0)
 			{

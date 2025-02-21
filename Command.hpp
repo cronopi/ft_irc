@@ -19,7 +19,7 @@ class Command
 
 		Command(Data *data);
 		virtual bool handles(std::string command) = 0;
-		virtual std::string execute(std::string command, std::string clientName) = 0;
+		virtual std::string execute(std::string command, size_t i) = 0;
 };
 #endif
 

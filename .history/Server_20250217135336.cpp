@@ -142,7 +142,7 @@ void Server::ServerInit()
 				}
 				std::cout << "he salido del bucle e imprimo message 2: " << message2 << std::endl;
 				std::cout << "numro de clientes ANTES DEL EXECUTE:" << data->getClients().size() << std::endl;
-				std::string result = execute(message2, i);
+				std::string result = execute(message2, data->getClients()[i].getName());
 				std::cout << "imprime result: " << result << std::endl;
 				if(result.compare("OK"))
 				{
@@ -163,9 +163,7 @@ void Server::ServerInit()
 		k = 0;
 		while( k < data->getChannels().size())
 		{
-			std::cout << "AAAAA" << std::endl;
 			std::string n = data->getChannels()[i].getName();
-			std::cout << "BBBBBB" << std::endl;
 			std::cout << n << std::endl;
 			std::cout << "canales: " << ( data->getChannels()[i].getName()) << std::endl;
 			k++;
@@ -187,7 +185,7 @@ void Server::CloseServer()
 	}
 }
 
-std::string Server::execute(std::string command,size_t i)
+std::string Server::execute(std::string command,std::string clientName)
 {
 	std::string result;
 	unsigned int posCommand = 0;
@@ -206,7 +204,7 @@ std::string Server::execute(std::string command,size_t i)
 	else
 	{
 		std::cout << "entrando en el else" << std::endl;
-		return availableCommands[posCommand]->execute(command, i);
+		return availableCommands[posCommand]->execute(command, clientName);
 	}
 
 }

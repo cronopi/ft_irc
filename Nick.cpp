@@ -32,10 +32,10 @@ bool Nick::handles(std::string command)
 	std::vector<std::string> result;
 
 	result = split(command);
-	return result[0].compare("JOIN")== 0;
+	return result[0].compare("NICK")== 0;
 }
 // funcion sin terminar
-std::string Nick::execute(std::string command, std::string clientName)
+std::string Nick::execute(std::string command, size_t i)
 {
 	std::vector<std::string> splitCommand;
 
@@ -43,7 +43,7 @@ std::string Nick::execute(std::string command, std::string clientName)
 	(void)command;
 	for(it = data->getClients().begin(); it != data->getClients().end(); it++)
 	{
-		if (it->getName() == clientName)
+		if (it->getName() == data->getClients()[i].getName())
 		{
 			return ("OK");
 		}

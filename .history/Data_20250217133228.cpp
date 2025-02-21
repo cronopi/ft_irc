@@ -2,7 +2,6 @@
 
 Data::Data()
 {
-	Client client;
 
 	operators.push_back("roberto");
 }
@@ -43,4 +42,3 @@ std::vector<std::string> Data::getOperators()
 {
 	return operators;
 }
-

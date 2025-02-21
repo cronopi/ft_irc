@@ -43,4 +43,3 @@ std::vector<std::string> Data::getOperators()
 {
 	return operators;
 }
-

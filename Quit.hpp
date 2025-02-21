@@ -17,7 +17,7 @@ class Quit : public Command
 
 		Quit(Data *data);
 		bool handles(std::string command);
-		std::string execute(std::string command, std::string clientName);
+		std::string execute(std::string command, size_t i);
 
 };
 #endif

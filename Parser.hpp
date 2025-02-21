@@ -6,6 +6,7 @@
 
 void						trimIsSpace(std::string &s);
 std::vector<std::string>	split(std::string str);
+std::vector<std::string>	split_semicolon(std::string str);
 bool						findCommand(std::string str);
 void						handleCommands(std::vector<std::string> command);
 

@@ -8,6 +8,7 @@
 class Data
 {
 	private:
+		std::string name;
 		std::vector<Client> clients;
 		std::vector<Channel> channels;
 		std::vector<std::string> operators;

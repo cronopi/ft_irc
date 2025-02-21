@@ -43,6 +43,26 @@ std::vector<std::string> split(std::string str) // JOIN CHANNEL
 	return (result);
 }
 
+std::vector<std::string> split_semicolon(std::string str) // para el archivo de datos .csv
+{
+	std::vector<std::string> result;
+
+	size_t start = 0;
+	for(size_t i = 0; i < str.length(); i++)
+	{
+		if (str[i] == ';')
+		{
+			if (i > start)
+				result.push_back(str.substr(start, i - start));
+			start = i + 1;
+		}
+	}
+	if (start < str.length())
+		result.push_back(str.substr(start));
+
+	return (result);
+}
+
 void handleCommands(std::vector<std::string> command)
 {
 	if (findCommand(command[0]) == 0)

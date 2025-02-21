@@ -35,7 +35,7 @@ bool Kick::handles(std::string command)
 	return result[0].compare("KICK")== 0;
 }
 
-std::string Kick::execute(std::string command, std::string clientName)
+std::string Kick::execute(std::string command, size_t i) // std::string clientName
 {
 	std::string					clientToKick;
 	std::vector<std::string>	splitCommand;
@@ -47,7 +47,7 @@ std::string Kick::execute(std::string command, std::string clientName)
 	posClient = 0;
 	posOperator = 0;
 
-	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(clientName)==0)
+	while(posOperator < data->getOperators().size() && data->getOperators()[posOperator].compare(data->getClients()[i].getName())==0)
 	{
 		posOperator++;
 	}
@@ -72,5 +72,4 @@ std::string Kick::execute(std::string command, std::string clientName)
 	}
 	else
 		return "unaothorized";
-
 }

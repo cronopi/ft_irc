@@ -37,15 +37,13 @@ bool Invite::handles(std::string command)
 	return result[0].compare("INVITE")== 0;
 }
 //sin terminar
-std::string Invite::execute(std::string command, std::string clientName)
+std::string Invite::execute(std::string command, size_t i)
 {
 	//TOPIC <canal> <user>
 	std::vector<std::string> splitCommand = split(command);
 	std::string channelName = splitCommand[1];
 	std::string invitedClientName = splitCommand[2];
 	unsigned int posChannels = 0;
-	unsigned int posCliente = 0;
-	(void)clientName;
 	while (posChannels < data->getChannels().size() && data->getChannels()[posChannels].getName().compare(channelName) != 0)
 	{
 		posChannels++;
@@ -55,13 +53,9 @@ std::string Invite::execute(std::string command, std::string clientName)
 		Channel c(channelName);
 		data->getChannels().push_back(c);
 	}
-	while (posCliente < data->getClients().size() && data->getClients()[posCliente].getName().compare(invitedClientName) != 0)
+	if (i < data->getClients().size())
 	{
-		posCliente++;
-	}
-	if (posCliente < data->getClients().size())
-	{
-		data->getClients()[posCliente].setChannel(channelName);
+		data->getClients()[i].setChannel(channelName);
 		//enviar un mensaje
 /* 		std::string b = "You are invited to the channel: ";
 		b = b + channelName;

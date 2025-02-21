@@ -48,7 +48,7 @@ class Server
 			virtual const char *what() const throw();
 		};
 
-		std::string execute(std::string command, std::string clientName);
+		std::string execute(std::string command, size_t i);
 	public:
 		Server();
 		Server(Server &copy);

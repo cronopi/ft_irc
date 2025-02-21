@@ -15,12 +15,7 @@ Channel::Channel(const Channel &copy)
 
 Channel &Channel::operator=(const Channel &copy)
 {
-	this->name = copy.name;
-	this->topic = copy.name;
-	this->inviteOnly = copy.inviteOnly;
-	this->topicRestricted = copy.topicRestricted;
-	this->Password = copy.Password;
-	this->maxUsers = copy.maxUsers;
+	(void)copy;
 	return (*this);
 }
 

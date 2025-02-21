@@ -2,7 +2,6 @@
 
 Client::Client()
 {
-	fd = 0;
 }
 
 Client::Client(const Client &copy)
@@ -34,11 +33,6 @@ std::string Client::getName()
 	return (name);
 }
 
-std::string Client::getNick()
-{
-	return (nickname);
-}
-
 
 int Client::getFd()
 {
@@ -68,14 +62,4 @@ void Client::setAddr(struct sockaddr_in addr)
 void	Client::setChannel(std::string channel)
 {
 	this->channel = channel;
-}
-
-void Client::setName(std::string name)
-{
-	this->name = name;
-}
-
-void Client::setNick(std::string nickname)
-{
-	this->nickname = nickname;
 }

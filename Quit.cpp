@@ -38,12 +38,12 @@ bool Quit::handles(std::string command)
 
 
 //sin hacer
-std::string Quit::execute(std::string command, std::string clientName)
+std::string Quit::execute(std::string command, size_t i)
 {
 	std::vector<std::string> result;
 	std::string QuitClient;
+	(void)i;
 
-	(void)clientName;
 	result = split(command);
 	QuitClient = result[1];
 	//eliminar al cliente de la lista
