@@ -24,13 +24,14 @@ Channel &Channel::operator=(const Channel &copy)
 	return (*this);
 }
 
-Channel::Channel(std::string name) :name(name)
+Channel::Channel(std::string name)
 {
 	Password		= "";
 	topic			= "";
 	maxUsers		= -1;
 	topicRestricted = 0;
 	inviteOnly		= 0;
+	this->name		= name;
 	//operator privilage
 }
 

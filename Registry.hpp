@@ -7,7 +7,7 @@
 class Registry
 {
 	private:
-		const std::string usersDatabase = "users.csv";
+		std::string usersDatabase;
 
 	public:
 		Registry();
@@ -18,5 +18,7 @@ class Registry
 		bool authenticateUser(std::string user, std::string password);
 		bool registerUser(std::string newUser, std::string password, std::string nickname);
 		void changePassword(std::string user, std::string newPass);
+
+		std::string readNick(std::string user);
 };
 #endif

@@ -65,6 +65,7 @@ std::vector<std::string> split_semicolon(std::string str) // para el archivo de 
 
 void handleCommands(std::vector<std::string> command)
 {
+	//no se usa
 	if (findCommand(command[0]) == 0)
 		std::cout << "command not found" << std::endl;
 

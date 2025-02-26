@@ -35,6 +35,10 @@ Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 	availableCommands.push_back(new Part(data));
 	availableCommands.push_back(new Quit(data));
 	availableCommands.push_back(new Topic(data));
+	availableCommands.push_back(new Register(data));
+	availableCommands.push_back(new Privmsg(data));
+	availableCommands.push_back(new User(data));
+
 }
 
 void Server::ServerInit()
@@ -164,10 +168,10 @@ void Server::ServerInit()
 		while( k < data->getChannels().size())
 		{
 			std::cout << "AAAAA" << std::endl;
-			std::string n = data->getChannels()[i].getName();
+			//std::string n = data->getChannels()[i];
 			std::cout << "BBBBBB" << std::endl;
-			std::cout << n << std::endl;
-			std::cout << "canales: " << ( data->getChannels()[i].getName()) << std::endl;
+			//std::cout << n << std::endl;
+			std::cout << "canales: " <<  data->getChannels()[k].getName() << std::endl;
 			k++;
 		}
 		std::cout << "despues del bucle de canales en server init " << data->getChannels().size() << std::endl;

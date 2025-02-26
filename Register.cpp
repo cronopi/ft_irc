@@ -37,7 +37,7 @@ bool Register::handles(std::string command)
 	return result[0].compare("REGISTER")== 0;
 }
 
-std::string Register::execute(std::string command, size_t i)
+std::string Register::execute(std::string command, size_t i) // USER NICKNAME AND PASSWORD
 {
 	std::vector<std::string> registerUser;
 	std::string user;
@@ -46,15 +46,19 @@ std::string Register::execute(std::string command, size_t i)
 	Registry reg;
 
 	registerUser = split(command);
-	user = registerUser[0];
-	nickName = registerUser[1];
-	password = registerUser[2];
+	user = registerUser[1];
+	nickName = registerUser[2];
+	password = registerUser[3];
 
-
+	if (user.empty() || nickName.empty() || password.empty())
+	{
+		return "ERROR: user, nickName or password cannot be empty";
+	}
 	if (reg.registerUser(user, password, nickName))
 	{
 		Client cli();
 		data->getClients()[i].setName(user);
 		data->getClients()[i].setNick(user);
 	}
+	return "OK";
 }

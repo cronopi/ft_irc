@@ -6,6 +6,7 @@
 
 Registry::Registry()
 {
+	usersDatabase = "users.csv";
 }
 
 Registry::Registry(const Registry &copy)
@@ -27,11 +28,7 @@ Registry &Registry::operator=(const Registry &copy)
 
 bool Registry::registerUser(std::string newUser, std::string password, std::string nickname)
 {
-
 	std::ifstream f("users.csv");
-
-	unsigned int i = 0;
-
 
 	if( f.is_open() )
 	{
@@ -67,9 +64,11 @@ bool Registry::registerUser(std::string newUser, std::string password, std::stri
 		std::cout << "Error: cannot open the file" << std::endl;
 		// abortar el servidor
 	}
+
+	return false;
 }
 
-bool authenticateUser(std::string user, std::string password)
+bool Registry::authenticateUser(std::string user, std::string password)
 {
 	std::ifstream				f("users.csv");
 	std::vector<std::string>	split_line;
@@ -96,7 +95,7 @@ bool authenticateUser(std::string user, std::string password)
 	return false;
 }
 
-void changePassword(std::string user, std::string newPass)
+void Registry::changePassword(std::string user, std::string newPass)
 {
 	std::ifstream f("users.csv");
 	std::ofstream aux("aux.csv");
@@ -134,4 +133,31 @@ void changePassword(std::string user, std::string newPass)
 			//abortar ejecucion
 		}
 	}
+}
+
+std::string Registry::readNick(std::string user)
+{
+	std::ifstream fd("users.csv");
+	std::string line;
+	std::vector<std::string> split_line;
+	//leer linea por linea y separar con split usuario y contraseña
+	if (!fd.is_open())
+	{
+		std::cout << "Error: couldn't open the file" << std::endl;
+	}
+	else
+	{
+		while(fd >> line)
+		{
+			split_line = split_semicolon(line);
+			if (split_line[0].compare(user) == 0)
+			{
+				fd.close();
+				return (split_line[1]);
+			}
+		}
+		fd.close();
+		return "";
+	}
+	return "";
 }

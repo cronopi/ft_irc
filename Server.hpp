@@ -27,6 +27,10 @@
 #include "Part.hpp"
 #include "Quit.hpp"
 #include "Topic.hpp"
+#include "Register.hpp"
+#include "Registry.hpp"
+#include "Privmsg.hpp"
+#include "User.hpp"
 
 class Server
 {

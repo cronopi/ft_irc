@@ -17,10 +17,13 @@ class Channel
 	public:
 		Channel();
 		Channel(const Channel &copy);
+		Channel(std::string name);
+
 		~Channel();
+
 		Channel &operator=(const Channel  &copy);
 
-		Channel(std::string name);
+
 		std::string		getName();
 		std::string		getTopic();
 		unsigned int	getMaxUsers();
