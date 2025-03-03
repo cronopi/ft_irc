@@ -58,8 +58,9 @@ std::string Kick::execute(std::string command, size_t i) // std::string clientNa
 			posClient++;
 		}
 		if(posClient<data->getClients().size()){
-			if(data->getClients()[posClient].getChannel().compare("")!=0){
-				data->getClients()[posClient].setChannel("");
+			if(data->getClients()[posClient].getChannel().empty()!=0) // no se puede usar compare("")
+			{
+				data->getClients()[posClient].AddChannel("");
 				return "OK";
 			}
 			else{
@@ -70,6 +71,5 @@ std::string Kick::execute(std::string command, size_t i) // std::string clientNa
 			return "no such client";
 		}
 	}
-	else
-		return "unaothorized";
+	return "unaothorized";
 }

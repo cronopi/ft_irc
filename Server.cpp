@@ -38,6 +38,8 @@ Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 	availableCommands.push_back(new Register(data));
 	availableCommands.push_back(new Privmsg(data));
 	availableCommands.push_back(new User(data));
+	availableCommands.push_back(new List(data));
+	availableCommands.push_back(new Msg(data));
 
 }
 

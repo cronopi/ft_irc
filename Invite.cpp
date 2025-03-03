@@ -55,7 +55,7 @@ std::string Invite::execute(std::string command, size_t i)
 	}
 	if (i < data->getClients().size())
 	{
-		data->getClients()[i].setChannel(channelName);
+		data->getClients()[i].AddChannel(channelName);
 		//enviar un mensaje
 /* 		std::string b = "You are invited to the channel: ";
 		b = b + channelName;

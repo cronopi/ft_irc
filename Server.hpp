@@ -31,6 +31,8 @@
 #include "Registry.hpp"
 #include "Privmsg.hpp"
 #include "User.hpp"
+#include "Msg.hpp"
+#include "List.hpp"
 
 class Server
 {

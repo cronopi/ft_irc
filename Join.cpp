@@ -54,6 +54,6 @@ std::string Join::execute(std::string command, size_t i) // std::string clientNa
 		Channel c(channelName);
 		data->getChannels().push_back(c);
 	}
-	data->getClients()[i].setChannel(channelName);
+	data->getClients()[i].AddChannel(channelName);
 	return ("OK");
 }

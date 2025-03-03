@@ -55,19 +55,19 @@ struct sockaddr_in Client::getAddr() const
 	return (addr);
 }
 
-std::string Client::getChannel()
+std::vector<std::string> Client::getChannel()
 {
 	return (channel);
 }
 
-void Client::setAddr(struct sockaddr_in addr)
+void	Client::setAddr(struct sockaddr_in addr)
 {
 	this->addr = addr;
 }
 
-void	Client::setChannel(std::string channel)
+void	Client::AddChannel(std::string channel)
 {
-	this->channel = channel;
+	this->channel.push_back(channel);
 }
 
 void Client::setName(std::string name)
