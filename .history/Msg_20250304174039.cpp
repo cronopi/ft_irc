@@ -32,15 +32,10 @@ Msg::Msg(Data *data):Command(data)
 bool Msg::handles(std::string command)
 {
 	std::vector<std::string> result;
-	std::cout << "estoy entrando en handles de MSG" << std::endl;
 
 	result = split(command);
 	return result[0].compare("MSG")== 0;
 }
-
-/*
-	IMPORTANTE este comando no funciona, el cliente de hexchat lo reconoce como si fuese privmsg ya que ha sido programado para ser una abreviatura
-*/
 
 std::string Msg::execute(std::string command, size_t i) // /msg <channel> <message>
 {
@@ -54,7 +49,6 @@ std::string Msg::execute(std::string command, size_t i) // /msg <channel> <messa
 	splitCommand = split(command);
 	channel = splitCommand[1];
 	message = splitCommand[2] + "\n";
-	std::cout << "vamos a imprimir channel y message: " << channel << " " << message << std::endl;
 	posChannel = 0;
 	posClient = 0;
 	posClientChannel = 0;

@@ -45,7 +45,7 @@ std::string Join::execute(std::string command, size_t i) // std::string clientNa
 	channelName = result[1];
 
 	unsigned int posChannels = 0;
-	while(posChannels < data->getChannels().size() && data->getChannels()[i].getName().compare(channelName) != 0)
+	while(posChannels < data->getChannels().size() && data->getChannels()[posChannels].getName().compare(channelName) != 0)
 	{
 		posChannels++;
 	}

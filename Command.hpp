@@ -25,9 +25,10 @@ class Command
 
 /* Los comandos IRC
 
+
+el servidor manda comando CAP Y LUEGO MÁS COMO NICK y user
 Comandos de mensajes
 NOTICE: Enviar un mensaje de notificación a un usuario o canal.
-MSG: Enviar un mensaje a un canal o usuario.
 Comandos de informacións
 
 WHO: Obtener información sobre los usuarios conectados a un canal.
@@ -38,3 +39,12 @@ OPER: Identificarse como operador del servidor IRC.
 PASS: Establecer la contraseña de operador.
 KILL: Desconectar a un usuario del servidor IRC.
 Estos son solo algunos de los comandos IRC más comunes. Hay muchos otros comandos disponibles, dependiendo del servidor IRC y la implementación específica. */
+
+
+/*
+	Si recibes CAP LS 302, responde con CAP END.
+	Si recibes NICK, verifica si está en uso y responde adecuadamente.
+	Si recibes USER, confirma que tienes ambos (NICK y USER) antes de permitir la conexión.
+	Envía los mensajes de bienvenida (001, 002, etc.) para completar la conexión.
+
+*/

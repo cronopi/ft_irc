@@ -22,9 +22,10 @@ Join &Join::operator=(const Join &copy)
 	return (*this);
 }
 
-Join::Join(Data &data)
+Join::Join(Data *data):Command(data)
 {
-	this->data = data;
+	std::cout << "constructor de join: " << data << std::endl;
+	std::cout << "numro de clientes en el constructor de JOIN: " << data->getClients().size() << std::endl;
 }
 
 bool Join::handles(std::string command)
@@ -35,32 +36,24 @@ bool Join::handles(std::string command)
 	return result[0].compare("JOIN")== 0;
 }
 
-std::string Join::execute(std::string command, std::string clientName)
+std::string Join::execute(std::string command, size_t i) // std::string clientName
 {
-
 	std::string channelName;
 	std::vector<std::string> result;
-	unsigned int posCliente;
 
 	result = split(command);
 	channelName = result[1];
-	posCliente = 0;
-	while(posCliente<data.getClients().size() && data.getClients()[posCliente].getName().compare(clientName) != 0)
-	{
-		posCliente++;
-	}
+
 	unsigned int posChannels = 0;
-	while(posChannels < data.getChannels().size() && data.getChannels()[posCliente].getName().compare(channelName) != 0)
+	while(posChannels < data->getChannels().size() && data->getChannels()[posChannels].getName().compare(channelName) != 0)
 	{
 		posChannels++;
 	}
-
-	if(posChannels == data.getChannels().size()){
+	if(posChannels == data->getChannels().size())
+	{
 		Channel c(channelName);
-		data.getChannels().push_back(c);
+		data->getChannels().push_back(c);
 	}
-
-	data.getClients()[posCliente].setChannel(channelName);
-
+	data->getClients()[i].AddChannel(channelName);
 	return ("OK");
 }

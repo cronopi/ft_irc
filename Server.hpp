@@ -33,6 +33,7 @@
 #include "User.hpp"
 #include "Msg.hpp"
 #include "List.hpp"
+#include "Cap.hpp"
 
 class Server
 {

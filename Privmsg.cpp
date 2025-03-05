@@ -32,6 +32,7 @@ Privmsg::Privmsg(Data *data)
 bool Privmsg::handles(std::string command)
 {
 	std::vector<std::string> result;
+	std::cout << "estoy entrando en handles de privmsg" << std::endl;
 
 	result = split(command);
 	return result[0].compare("PRIVMSG")== 0;
@@ -47,6 +48,7 @@ std::string Privmsg::execute(std::string command, size_t i)  // /privmsg <target
 	(void)i;
 
 	unsigned int posClient = 0;
+	std::cout << "estoy entrando en privmsg" << std::endl;
 	while(posClient < data->getClients().size())
 	{
 		if (data->getClients()[posClient].getName().compare(target) == 0)
