@@ -41,6 +41,7 @@ Server::Server(int port, std::string pasword) : port(port), _password(pasword)
 	availableCommands.push_back(new User(data));
 	availableCommands.push_back(new List(data));
 	availableCommands.push_back(new Cap(data));
+	availableCommands.push_back(new Who(data));
 
 }
 
@@ -178,7 +179,7 @@ void Server::ServerInit()
 			k++;
 		}
 		std::cout << "despues del bucle de canales en server init " << data->getChannels().size() << std::endl;
-		sleep(2);
+		sleep(5);
 		if (Server::signal)
 		{
 			exit(0);

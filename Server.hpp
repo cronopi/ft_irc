@@ -34,6 +34,7 @@
 #include "Msg.hpp"
 #include "List.hpp"
 #include "Cap.hpp"
+#include "Who.hpp"
 
 class Server
 {
@@ -72,6 +73,5 @@ class Server
 		void ServerInit();
 
 		static void sigHandler(int sig);
-
 };
 #endif

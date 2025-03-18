@@ -39,6 +39,11 @@ bool Cap::handles(std::string command)
 std::string Cap::execute(std::string command, size_t i) // /CAP CAP * LS
 {
 	(void)command;
-	write(data->getClients()[i].getFd(), "CAPS LS\n", 9);
+	write(data->getClients()[i].getFd(), "CAPS END\n", 10);
+	write(data->getClients()[i].getFd(), "NICK rober\n", 11);
+	write(data->getClients()[i].getFd(), "USER roberto * mi-pc : rober\n", 29);
+	//USER tu_usuario tu_hostname * :tu_nombre_real
+
+
 	return ("OK");
 }

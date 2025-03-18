@@ -26,12 +26,11 @@ class Command
 /* Los comandos IRC
 
 
-el servidor manda comando CAP Y LUEGO MÁS COMO NICK y user
-Comandos de mensajes
 NOTICE: Enviar un mensaje de notificación a un usuario o canal.
 Comandos de informacións
-
 WHO: Obtener información sobre los usuarios conectados a un canal.
+WHOIS: verificar información sobre un usuario.
+PING: Enviar un mensaje de ping al servidor IRC para comprobar su conectividad.
 WHOIS: Obtener información sobre un usuario específico.
 Comandos de administración
 

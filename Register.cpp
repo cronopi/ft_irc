@@ -43,7 +43,7 @@ std::string Register::execute(std::string command, size_t i) // USER NICKNAME AN
 	std::string user;
 	std::string nickName;
 	std::string password;
-	Registry reg;
+	Registry	reg;
 
 	registerUser = split(command);
 	user = registerUser[1];
@@ -56,7 +56,7 @@ std::string Register::execute(std::string command, size_t i) // USER NICKNAME AN
 	}
 	if (reg.registerUser(user, password, nickName))
 	{
-		Client cli();
+		Client cli;
 		data->getClients()[i].setName(user);
 		data->getClients()[i].setNick(user);
 	}
